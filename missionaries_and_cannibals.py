@@ -1,12 +1,28 @@
 from operator import sub, add
 
+
 def main():
+    goal_state = (0, 0, 0)
 
     stack = []
 
     # missionaries, cannibals, and boat
     state = State((3, 3, 1))
 
+    print(state)
+
+    stack.append(state)
+
+    i = 0
+    while state.wrong_side != goal_state:
+        state = stack.pop()
+        stack = increase_depth_of_search_tree(i, state, stack)
+        i += 1
+
+    print(state)
+
+
+def increase_depth_of_search_tree(i, state, stack):
     # subtract then add then subtract then add actions to state transition (get to new depth)
     actions = [
         (1, 0, 1),
@@ -16,23 +32,16 @@ def main():
         (1, 1, 1)
     ]
 
-    for i, action in enumerate(actions):
+    for action in actions:
         if i % 2 == 0:
-            new_state = state.perform_action(sub, action)
+            new_state = perform_action(sub, action, state.wrong_side)
         else:
-            new_state = state.perform_action(add, action)
+            new_state = perform_action(add, action, state.wrong_side)
 
-        stack.append(new_state)
+        if new_state.is_valid():
+            stack.append(new_state)
 
-    print(stack.pop())
-    print()
-
-    for s in stack:
-        print(s)
-
-
-class States:
-    pass
+    return stack
 
 
 class State:
@@ -40,7 +49,7 @@ class State:
         self.wrong_side = wrong_side
 
     def __str__(self):
-        return 'R: ' + str(self.wrong_side) + '   W: ' + str(self.right_side)
+        return 'W: ' + str(self.wrong_side) + '   R: ' + str(self.right_side)
 
     @property
     def right_side(self):
@@ -52,52 +61,50 @@ class State:
             return self.wrong_side[0]
         elif side == 'r':
             return self.right_side[0]
+        else:
+            raise ValueError('Invalid index: ' + side)
 
     def num_cannibals(self, side):
         if side == 'w':
             return self.wrong_side[1]
         elif side == 'r':
             return self.right_side[1]
+        else:
+            raise ValueError('Invalid index: ' + side)
 
     def num_boat(self, side):
         if side == 'w':
             return self.wrong_side[2]
         elif side == 'r':
             return self.right_side[2]
-
-    def perform_action(self, arithmetic_operator, action):
-        state_tuple = tuple(map(arithmetic_operator, self.wrong_side, action))
-        new_state = State(state_tuple)
-        if self.is_valid(new_state):
-            return new_state
         else:
-            raise TransitionError(self.wrong_side, state_tuple, 'invalid state transition!')
+            raise ValueError('Invalid index: ' + side)
 
-    @staticmethod
-    def is_valid(state):
-        missionaries_valid = 0 >= state.num_missionaries('w') >= 3 and 0 >= state.num_missionaries('r') >= 3
-        cannibals_valid = 0 >= state.num_cannibals('w') >= 3 and 0 >= state.num_cannibals('r') >= 3
-        boat_valid = 0 >= state.num_boat('w') >= 1 and 0 >= state.num_boat('r') >= 1
-        if missionaries_valid and cannibals_valid and boat_valid:
+    def is_valid(self):
+        missionaries_valid = (0 <= self.num_missionaries('w') <= 3) and (0 <= self.num_missionaries('r') <= 3)
+        cannibals_valid = (0 <= self.num_cannibals('w') <= 3) and (0 <= self.num_cannibals('r') <= 3)
+        boat_valid = (0 <= self.num_boat('w') <= 1) and (0 <= self.num_boat('r') <= 1)
+
+        if missionaries_valid and cannibals_valid and boat_valid and self.missionaries_are_safe():
             return True
         else:
             return False
 
+    def missionaries_are_safe(self):
+        missionaries_are_safe = True
 
-class TransitionError(Exception):
-    """Raised when an operation attempts a state transition that's not
-    allowed.
+        if self.num_cannibals('w') > self.num_missionaries('w'):
+            missionaries_are_safe = False
+        if self.num_cannibals('r') > self.num_missionaries('r'):
+            missionaries_are_safe = False
 
-    Attributes:
-        previous -- state at beginning of transition
-        next -- attempted new state
-        message -- explanation of why the specific transition is not allowed
-    """
+        return missionaries_are_safe
 
-    def __init__(self, previous, next, message):
-        self.previous = previous
-        self.next = next
-        self.message = message
+
+def perform_action(arithmetic_operator, action, state):
+    new_state_tuple = tuple(map(arithmetic_operator, state, action))
+    new_state = State(new_state_tuple)
+    return new_state
 
 
 if __name__ == '__main__':
