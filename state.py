@@ -8,6 +8,9 @@ class State:
     def __init__(self, wrong_side):
         self.wrong_side = wrong_side
 
+    def __repr__(self):
+        return 'W: ' + str(self.wrong_side) + '   R: ' + str(self.right_side)
+
     def __str__(self):
         return 'W: ' + str(self.wrong_side) + '   R: ' + str(self.right_side)
 

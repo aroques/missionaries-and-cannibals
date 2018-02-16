@@ -1,5 +1,5 @@
 #
-# Source: https://github.com/aimacode/aima-python/blob/master/search.py
+# Adapted from https://github.com/aimacode/aima-python/blob/master/search.py
 #
 
 from utils import is_in
@@ -12,11 +12,11 @@ class ProblemBase(object):
     __init__, goal_test, and path_cost. Then you will create instances
     of your subclass and solve them with the various search functions."""
 
-    def __init__(self, initial, goal=None):
+    def __init__(self, initial_state, goal=None):
         """The constructor specifies the initial state, and possibly a goal
         state, if there is a unique goal. Your subclass's constructor can add
         other arguments."""
-        self.initial = initial
+        self.initial_state = initial_state
         self.goal = goal
 
     def actions(self, state):
