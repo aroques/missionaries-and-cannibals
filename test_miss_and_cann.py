@@ -1,7 +1,7 @@
 import unittest
-from missionaries_and_cannibals import State
+from state import State
 from missionaries_and_cannibals import perform_action
-from operator import sub, add
+from operator import sub
 
 
 class TestState(unittest.TestCase):
@@ -21,33 +21,25 @@ class TestState(unittest.TestCase):
     def test_initial_properties(self):
         self.assertEqual(self.state.wrong_side, (3, 3, 1))
         self.assertEqual(self.state.right_side, (0, 0, 0))
-        self.assertEqual(self.state.num_boat('w'), 1)
-        self.assertEqual(self.state.num_boat('r'), 0)
-        self.assertEqual(self.state.num_missionaries('w'), 3)
-        self.assertEqual(self.state.num_missionaries('r'), 0)
-        self.assertEqual(self.state.num_cannibals('w'), 3)
-        self.assertEqual(self.state.num_cannibals('r'), 0)
+        self.assertEqual(self.state.num_boat, 1)
+        self.assertEqual(self.state.num_missionaries, 3)
+        self.assertEqual(self.state.num_cannibals, 3)
 
     def test_is_valid(self):
-        try:
 
-            expected_valid = [
-                False,
-                False,
-                True,
-                True,
-                True
-            ]
+        expected_valid = [
+            False,
+            False,
+            True,
+            True,
+            True
+        ]
 
-            state_tuple = self.state.wrong_side
+        state_tuple = self.state.wrong_side
 
-            for i, action in enumerate(self.actions):
-                new_state = perform_action(sub, action, state_tuple)
-                self.assertEqual(expected_valid[i], new_state.is_valid())
-
-        except AssertionError as e:
-            print(e)
-            print('state: {}'.format(new_state))
+        for i, action in enumerate(self.actions):
+            new_state = perform_action(sub, action, state_tuple)
+            self.assertEqual(expected_valid[i], new_state.is_valid(), 'i = {}, state = {}'.format(i, new_state) )
 
     def test_perform_action(self):
 

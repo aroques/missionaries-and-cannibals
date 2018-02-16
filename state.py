@@ -1,5 +1,8 @@
 from operator import sub
 
+MISSIONARY_IDX = 0
+CANNIBAL_IDX = 1
+BOAT_IDX = 2
 
 class State:
     def __init__(self, wrong_side):
@@ -13,45 +16,29 @@ class State:
         total = (3, 3, 1)
         return tuple(map(sub, total, self.wrong_side))
 
-    def num_missionaries(self, side):
-        if side == 'w':
-            return self.wrong_side[0]
-        elif side == 'r':
-            return self.right_side[0]
-        else:
-            raise ValueError('Invalid index: ' + side)
+    @property
+    def num_missionaries(self):
+        return self.wrong_side[MISSIONARY_IDX]
 
-    def num_cannibals(self, side):
-        if side == 'w':
-            return self.wrong_side[1]
-        elif side == 'r':
-            return self.right_side[1]
-        else:
-            raise ValueError('Invalid index: ' + side)
+    @property
+    def num_cannibals(self):
+        return self.wrong_side[CANNIBAL_IDX]
 
-    def num_boat(self, side):
-        if side == 'w':
-            return self.wrong_side[2]
-        elif side == 'r':
-            return self.right_side[2]
-        else:
-            raise ValueError('Invalid index: ' + side)
+    @property
+    def num_boat(self):
+        return self.wrong_side[BOAT_IDX]
+
+    @property
+    def missionaries_are_safe(self):
+        return self.num_missionaries > 0 and self.num_missionaries >= self.num_cannibals
 
     def is_valid(self):
-        missionaries_valid = 0 <= self.num_missionaries('w') <= 3 and 0 <= self.num_missionaries('r') <= 3
-        cannibals_valid = 0 <= self.num_cannibals('w') <= 3 and 0 <= self.num_cannibals('r') <= 3
-        boat_valid = 0 <= self.num_boat('w') <= 1 and 0 <= self.num_boat('r') <= 1
+        num_missionaries_valid = 0 <= self.num_missionaries <= 3
+        num_cannibals_valid = 0 <= self.num_cannibals <= 3
+        num_boat_valid = 0 <= self.num_boat <= 1
 
-        if missionaries_valid and cannibals_valid and boat_valid and self.missionaries_are_safe():
+        if num_missionaries_valid and num_cannibals_valid and num_boat_valid and self.missionaries_are_safe:
             return True
         else:
             return False
 
-    def missionaries_are_safe(self):
-        missionaries_are_safe = True
-        if 0 < self.num_missionaries('w') < self.num_cannibals('w'):
-            missionaries_are_safe = False
-        if 0 < self.num_missionaries('r') < self.num_cannibals('r'):
-            missionaries_are_safe = False
-
-        return missionaries_are_safe
