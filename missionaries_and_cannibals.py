@@ -92,10 +92,9 @@ class State:
 
     def missionaries_are_safe(self):
         missionaries_are_safe = True
-
-        if self.num_cannibals('w') > self.num_missionaries('w'):
+        if 0 < self.num_missionaries('w') < self.num_cannibals('w'):
             missionaries_are_safe = False
-        if self.num_cannibals('r') > self.num_missionaries('r'):
+        if 0 < self.num_missionaries('r') < self.num_cannibals('r'):
             missionaries_are_safe = False
 
         return missionaries_are_safe
