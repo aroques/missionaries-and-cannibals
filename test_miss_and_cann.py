@@ -44,6 +44,7 @@ class TestState(unittest.TestCase):
             for i, action in enumerate(self.actions):
                 new_state = perform_action(sub, action, state_tuple)
                 self.assertEqual(expected_valid[i], new_state.is_valid())
+
         except AssertionError as e:
             print(e)
             print('state: {}'.format(new_state))
