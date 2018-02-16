@@ -39,7 +39,7 @@ class TestState(unittest.TestCase):
 
         for i, action in enumerate(self.actions):
             new_state = perform_action(sub, action, state_tuple)
-            self.assertEqual(expected_valid[i], new_state.is_valid(), 'i = {}, state = {}'.format(i, new_state) )
+            self.assertEqual(expected_valid[i], new_state.is_valid, 'i = {}, state = {}'.format(i, new_state) )
 
     def test_perform_action(self):
 

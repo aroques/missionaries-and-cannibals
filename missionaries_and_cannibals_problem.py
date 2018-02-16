@@ -4,10 +4,7 @@ from state import State
 
 class MissionariesAndCannibalsProblem(ProblemBase):
 
-    """The abstract class for a formal problem. You should subclass
-    this and implement the methods actions and result, and possibly
-    __init__, goal_test, and path_cost. Then you will create instances
-    of your subclass and solve them with the various search functions."""
+    """Missionaries and Cannibals problem class"""
 
     def __init__(self, initial_state, goal, actions):
         """The constructor specifies the initial state, and goal state."""

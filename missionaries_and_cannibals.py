@@ -39,7 +39,7 @@ def increase_depth_of_search_tree(i, state, frontier):
         else:
             new_state = perform_action(add, action, state.wrong_side)
 
-        if new_state.is_valid():
+        if new_state.is_valid:
             frontier.append(new_state)
 
     return frontier
