@@ -10,12 +10,11 @@ class Node:
     that if a state is arrived at by two paths, then there are two nodes with
     the same state.  Also includes the action that got us to this state."""
 
-    def __init__(self, state, parent=None, action=None, path_cost=0):
+    def __init__(self, state, parent=None, action=None):
         """Create a search tree Node, derived from a parent by an action."""
         self.state = state
         self.parent = parent
         self.action = action
-        self.path_cost = path_cost
         self.depth = 0
         if parent:
             self.depth = parent.depth + 1
@@ -29,13 +28,11 @@ class Node:
     def expand(self, problem):
         """List the nodes reachable in one step from this node."""
         return [self.child_node(problem, action)
-                for action in problem.actions(self.state)]
+                for action in problem.actions(self)]
 
     def child_node(self, problem, action):
         next = problem.result(self.state, action)
-        return Node(next, self, action,
-                    problem.path_cost(self.path_cost, self.state,
-                                      action, next))
+        return Node(next, self, action)
 
     def solution(self):
         """Return the sequence of actions to go from the root to this node."""

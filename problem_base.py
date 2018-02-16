@@ -32,7 +32,7 @@ class ProblemBase(object):
         self.actions(state)."""
         raise NotImplementedError
 
-    def goal_test(self, state):
+    def goal_is(self, state):
         """Return True if the state is a goal. The default method compares the
         state to self.goal or checks for state in self.goal if it is a
         list, as specified in the constructor. Override this method if
