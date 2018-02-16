@@ -1,7 +1,7 @@
 #
 #   Adapted from https://github.com/aimacode/aima-python/blob/master/search.py
 #
-
+from operator import sub, add
 
 class Node:
 
@@ -24,6 +24,8 @@ class Node:
 
     def __lt__(self, node):
         return self.state < node.state
+
+
 
     def expand(self, problem):
         """List the nodes reachable in one step from this node."""

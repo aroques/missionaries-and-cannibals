@@ -7,10 +7,10 @@ class MissionariesAndCannibalsProblem(ProblemBase):
 
     """Missionaries and Cannibals problem class"""
 
-    def __init__(self, initial_state, goal, actions):
+    def __init__(self, initial_state, goal_state, actions):
         """The constructor specifies the initial state, and goal state."""
         self.actions = actions
-        super.__init__(initial_state, goal)
+        super.__init__(initial_state, goal_state)
 
     def actions(self, state):
         """Return the actions that can be executed in the given
@@ -42,7 +42,6 @@ class MissionariesAndCannibalsProblem(ProblemBase):
         pass
 
     @staticmethod
-    def perform_action(arithmetic_operator, action, state):
+    def perform_action(arithmetic_operator, state, action):
         new_state_tuple = tuple(map(arithmetic_operator, state, action))
-        new_state = State(new_state_tuple)
-        return Node(new_state)
+        return State(new_state_tuple)

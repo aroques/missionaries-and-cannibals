@@ -19,7 +19,7 @@ def main():
         (1, 1, 1)
     ]
 
-    problem = MissionariesAndCannibalsProblem(initial_node, goal_node, actions)
+    problem = MissionariesAndCannibalsProblem(initial_state, goal_state, actions)
 
     iterative_deepening_search(problem)
 
