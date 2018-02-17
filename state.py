@@ -26,7 +26,7 @@ class State:
 
     def __sub__(self, other):
         if not isinstance(other, tuple):
-            raise TypeError('Cannot subract {} from state'.format(type(other)))
+            raise TypeError('Cannot subtract {} from state'.format(type(other)))
         new_state_tuple = tuple(map(sub, self.wrong_side, other))
         return State(new_state_tuple)
 
