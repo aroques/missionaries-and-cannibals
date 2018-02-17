@@ -1,7 +1,7 @@
 import unittest
 from state import State
 from node import Node
-from missionaries_and_cannibals_problem import MissionariesAndCannibalsProblem
+from missionaries_and_cannibals import MissionariesAndCannibals
 
 
 class TestState(unittest.TestCase):
@@ -77,12 +77,14 @@ class TestState(unittest.TestCase):
             State((1, 4, 1)),
             State((1, 2, -1)),
             State((1, 2, -1)),
+            State((2, 1, 1))  # other (right) side is invalid
         ]
 
         for state in exp_valid:
             self.assertTrue(state.is_valid, 'state should be valid. state: {}'.format(state))
         for state in exp_invalid:
             self.assertFalse(state.is_valid, 'state should be invalid. state: {}'.format(state))
+
 
 class TestMissAndCannProblem(unittest.TestCase):
     def setUp(self):
@@ -97,7 +99,7 @@ class TestMissAndCannProblem(unittest.TestCase):
             (1, 1, 1)
         ]
 
-        self.problem = MissionariesAndCannibalsProblem(initial_state, goal_state, actions)
+        self.problem = MissionariesAndCannibals(initial_state, goal_state, actions)
         self.root_node = Node(self.problem.initial_state)
 
     def tearDown(self):
@@ -128,6 +130,7 @@ class TestMissAndCannProblem(unittest.TestCase):
         node_is_goal = self.problem.goal_is(node.state)
         self.assertTrue(node_is_goal)
 
+
 class TestNode(unittest.TestCase):
     def setUp(self):
         initial_state = State((3, 3, 1))
@@ -141,7 +144,7 @@ class TestNode(unittest.TestCase):
             (1, 1, 1)
         ]
 
-        self.problem = MissionariesAndCannibalsProblem(initial_state, goal_state, actions)
+        self.problem = MissionariesAndCannibals(initial_state, goal_state, actions)
         self.root_node = Node(self.problem.initial_state)
         self.actions = self.problem.actions(self.root_node)
 
