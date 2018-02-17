@@ -88,18 +88,7 @@ class TestState(unittest.TestCase):
 
 class TestMissAndCannProblem(unittest.TestCase):
     def setUp(self):
-        initial_state = State((3, 3, 1))
-        goal_state = State((0, 0, 0))
-
-        actions = [
-            (1, 0, 1),
-            (2, 0, 1),
-            (0, 1, 1),
-            (0, 2, 1),
-            (1, 1, 1)
-        ]
-
-        self.problem = MissionariesAndCannibals(initial_state, goal_state, actions)
+        self.problem = MissionariesAndCannibals()
         self.root_node = Node(self.problem.initial_state)
 
     def tearDown(self):
@@ -133,18 +122,7 @@ class TestMissAndCannProblem(unittest.TestCase):
 
 class TestNode(unittest.TestCase):
     def setUp(self):
-        initial_state = State((3, 3, 1))
-        goal_state = State((0, 0, 0))
-
-        actions = [
-            (1, 0, 1),
-            (2, 0, 1),
-            (0, 1, 1),
-            (0, 2, 1),
-            (1, 1, 1)
-        ]
-
-        self.problem = MissionariesAndCannibals(initial_state, goal_state, actions)
+        self.problem = MissionariesAndCannibals()
         self.root_node = Node(self.problem.initial_state)
         self.actions = self.problem.actions(self.root_node)
 

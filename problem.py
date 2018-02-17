@@ -4,7 +4,6 @@
 
 from utils import is_in
 
-
 class Problem(object):
     """The abstract class for a formal problem. You should subclass
     this and implement the methods actions and result, and possibly
