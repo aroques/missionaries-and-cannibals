@@ -12,7 +12,7 @@ AI because it was the subject of the first paper that approached problem formula
 analytical viewpoint (Amarel, 1968).
 _Source: “Artificial Intelligence: A Modern Approach.” Artificial Intelligence: A Modern Approach, by Stuart J. Russell and Peter Norvig, Pearson Education, Inc., 2010, pp. 115._
 
-This program solves the Missionaries and Cannibals program using **Iterative Deepening Search**.
+This program uses **Iterative Deepening Search** to solve the Missionaries and Cannibals problem.
 
 To run this program:
 
