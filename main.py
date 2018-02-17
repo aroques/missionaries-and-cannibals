@@ -1,4 +1,4 @@
-from search import iterative_deepening_search
+from missionaries_and_cannibals import iterative_deepening_search
 from missionaries_and_cannibals import MissionariesAndCannibals
 
 

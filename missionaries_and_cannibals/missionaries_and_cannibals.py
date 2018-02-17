@@ -1,6 +1,6 @@
-from problem import Problem
-from node import Node
-from state import State
+from .problem import Problem
+from .node import Node
+from .state import State
 
 class MissionariesAndCannibals(Problem):
     """Missionaries and Cannibals problem class"""

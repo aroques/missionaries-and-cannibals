@@ -2,7 +2,7 @@
 # Adapted from https://github.com/aimacode/aima-python/blob/master/search.py
 #
 
-from utils import is_in
+from .utils import is_in
 
 class Problem(object):
     """The abstract class for a formal problem. You should subclass

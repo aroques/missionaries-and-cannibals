@@ -2,7 +2,7 @@
 # Adapted from https://github.com/aimacode/aima-python/blob/master/search.py
 #
 
-from node import Node
+from .node import Node
 
 def iterative_deepening_search(problem):
     limit = 13

@@ -1,6 +1,6 @@
 import unittest
-from state import State
-from node import Node
+from missionaries_and_cannibals import State
+from missionaries_and_cannibals import Node
 from missionaries_and_cannibals import MissionariesAndCannibals
 
 
