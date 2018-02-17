@@ -9,8 +9,10 @@ in one place outnumbered by the cannibals in that place. This problem is famous 
 AI because it was the subject of the first paper that approached problem formulation from an
 analytical viewpoint (Amarel, 1968)
 
+“Artificial Intelligence: A Modern Approach.” Artificial Intelligence: A Modern Approach, by Stuart J. Russell and Peter Norvig, Pearson Education, Inc., 2010, pp. 115.
+
 To run this program:
 
-```bash
+```
 python3.6 main.py
 ```
