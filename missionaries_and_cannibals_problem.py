@@ -1,7 +1,5 @@
 from problem_base import ProblemBase
 from node import Node
-from state import State
-from operator import sub, add
 
 class MissionariesAndCannibalsProblem(ProblemBase):
 
@@ -9,39 +7,31 @@ class MissionariesAndCannibalsProblem(ProblemBase):
 
     def __init__(self, initial_state, goal_state, actions):
         """The constructor specifies the initial state, and goal state."""
-        self.actions = actions
-        super.__init__(initial_state, goal_state)
+        self.all_possible_actions = actions
+        super().__init__(initial_state, goal_state)
 
-    def actions(self, state):
+    def actions(self, node):
         """Return the actions that can be executed in the given
         state. The result would typically be a list, but if there are
         many actions, consider yielding them one at a time in an
         iterator, rather than building them all at once."""
-        all_states = [self.result(state, action) for action in self.actions]
-        valid_states = filter(lambda state: state.is_valid, all_states)
-        return [state.action for state in valid_states]
+        all_nodes = [self.result(node, action) for action in self.all_possible_actions]
+        valid_nodes = filter(lambda n: n.state.is_valid, all_nodes)
+        return [n.action for n in valid_nodes]
 
-        for action in self.actions:
-            self.result(state, action)
-
-    def result(self, state, action):
-        """Return the state that results from executing the given
+    def result(self, node, action):
+        """Return the node that results from executing the given
         action in the given state. The action must be one of
         self.actions(state)."""
-        if action not in self.actions:
+        if action not in self.all_possible_actions:
             raise Exception('action not in actions!')
 
-        if state.depth % 2 == 0:
-            result = self.perform_action(sub, state, action)
+        if node.depth % 2 == 0:
+            state = node.state - action
         else:
-            result = self.perform_action(add, state, action)
+            state = node.state + action
 
-        return result
+        return Node(state, node, action)
 
     def value(self, state):
         pass
-
-    @staticmethod
-    def perform_action(arithmetic_operator, state, action):
-        new_state_tuple = tuple(map(arithmetic_operator, state, action))
-        return State(new_state_tuple)

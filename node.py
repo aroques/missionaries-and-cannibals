@@ -1,7 +1,6 @@
 #
 #   Adapted from https://github.com/aimacode/aima-python/blob/master/search.py
 #
-from operator import sub, add
 
 class Node:
 
@@ -22,10 +21,9 @@ class Node:
     def __repr__(self):
         return "<Node {}>".format(self.state)
 
-    def __lt__(self, node):
-        return self.state < node.state
-
-
+    def __eq__(self, other):
+        return self.state == other.state and self.action == other.action \
+               and self.depth == other.depth and self.parent == other.parent
 
     def expand(self, problem):
         """List the nodes reachable in one step from this node."""
@@ -33,13 +31,14 @@ class Node:
                 for action in problem.actions(self)]
 
     def child_node(self, problem, action):
-        next = problem.result(self.state, action)
-        return Node(next, self, action)
+        return problem.result(self, action)
 
+    @property
     def solution(self):
         """Return the sequence of actions to go from the root to this node."""
         return [node.action for node in self.path()[1:]]
 
+    @property
     def path(self):
         """Return a list of nodes forming the path from the root to this node."""
         node, path_back = self, []

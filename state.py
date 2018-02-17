@@ -22,13 +22,13 @@ class State:
         if not isinstance(other, tuple):
             raise TypeError('Cannot add state and {}'.format(type(other)))
         new_state_tuple = tuple(map(add, self.wrong_side, other))
-        return self.__init__(new_state_tuple)
+        return State(new_state_tuple)
 
     def __sub__(self, other):
         if not isinstance(other, tuple):
             raise TypeError('Cannot subract {} from state'.format(type(other)))
         new_state_tuple = tuple(map(sub, self.wrong_side, other))
-        return self.__init__(new_state_tuple)
+        return State(new_state_tuple)
 
     @property
     def right_side(self):
