@@ -1,13 +1,24 @@
 from problem import Problem
 from node import Node
+from state import State
 
 class MissionariesAndCannibals(Problem):
-
     """Missionaries and Cannibals problem class"""
 
-    def __init__(self, initial_state, goal_state, actions):
+    def __init__(self):
         """The constructor specifies the initial state, and goal state."""
-        self.all_possible_actions = actions
+
+        initial_state = State((3, 3, 1))
+        goal_state = State((0, 0, 0))
+
+        self.all_possible_actions = [
+            (1, 0, 1),
+            (2, 0, 1),
+            (0, 1, 1),
+            (0, 2, 1),
+            (1, 1, 1)
+        ]
+
         super().__init__(initial_state, goal_state)
 
     def actions(self, node):
