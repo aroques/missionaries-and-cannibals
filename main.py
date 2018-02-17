@@ -8,18 +8,18 @@ def main():
 
     result = iterative_deepening_search(problem)
 
-    print_result(result)
+    if result:
+        print_result(result)
 
 def print_result(result):
-    if result:
-        for i, node in enumerate(result.path):
-            if node.depth % 2 == 0:
-                sign = '+'
-            else:
-                sign = '-'
-            print('{}{}'.format(sign, node.action))
-            print('depth: {}'.format(node.depth))
-            print(' {}'.format(node.state.wrong_side))
+    for i, node in enumerate(result.path):
+        if node.depth % 2 == 0:
+            sign = '+'
+        else:
+            sign = '-'
+        print('{}{}'.format(sign, node.action))
+        print('depth: {}'.format(node.depth))
+        print(' {}'.format(node.state.wrong_side))
 
 
 if __name__ == '__main__':
