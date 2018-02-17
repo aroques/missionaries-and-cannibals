@@ -1,4 +1,6 @@
-## Missionaries and Cannibals
+## Missionaries and Cannibals 
+
+[![Build Status](https://travis-ci.org/aroques/missionaries-and-cannibals.svg?branch=master)](https://travis-ci.org/aroques/missionaries-and-cannibals)
 
 ![Image of Missionaries and Cannibals Problem](http://www.vynguyen.net/wp-content/uploads/2016/01/Almost-Solved.png)
 
