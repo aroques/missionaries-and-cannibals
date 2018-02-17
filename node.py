@@ -22,8 +22,11 @@ class Node:
         return "<Node {}>".format(self.state)
 
     def __eq__(self, other):
-        return self.state == other.state and self.action == other.action \
-               and self.depth == other.depth and self.parent == other.parent
+        if isinstance(other, Node):
+            return self.state == other.state and self.action == other.action \
+                   and self.depth == other.depth and self.parent == other.parent
+        else:
+            return False
 
     def expand(self, problem):
         """List the nodes reachable in one step from this node."""

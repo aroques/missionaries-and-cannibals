@@ -15,7 +15,7 @@ class MissionariesAndCannibalsProblem(ProblemBase):
         state. The result would typically be a list, but if there are
         many actions, consider yielding them one at a time in an
         iterator, rather than building them all at once."""
-        all_nodes = [self.result(node, action) for action in self.all_possible_actions]
+        all_nodes = [self.__perform_action(node, action) for action in self.all_possible_actions]
         valid_nodes = filter(lambda n: n.state.is_valid, all_nodes)
         return [n.action for n in valid_nodes]
 
@@ -23,9 +23,15 @@ class MissionariesAndCannibalsProblem(ProblemBase):
         """Return the node that results from executing the given
         action in the given state. The action must be one of
         self.actions(state)."""
-        if action not in self.all_possible_actions:
+        if action not in self.actions(node):
             raise Exception('action not in actions!')
 
+        return self.__perform_action(node, action)
+
+    @staticmethod
+    def __perform_action(node, action):
+        """Return the node that results from executing the given
+        action in the given state."""
         if node.depth % 2 == 0:
             state = node.state - action
         else:

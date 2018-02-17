@@ -49,7 +49,7 @@ class State:
 
     @property
     def missionaries_are_safe(self):
-        return self.num_missionaries > 0 and self.num_missionaries >= self.num_cannibals
+        return self.num_missionaries == 0 or self.num_missionaries >= self.num_cannibals \
 
     @property
     def is_valid(self):

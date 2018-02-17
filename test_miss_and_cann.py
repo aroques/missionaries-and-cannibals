@@ -25,6 +25,20 @@ class TestState(unittest.TestCase):
         self.assertEqual(self.state.num_missionaries, 3)
         self.assertEqual(self.state.num_cannibals, 3)
 
+    def test_missionaries_are_safe(self):
+        exp_safe = [
+            State((3, 0, 1)),
+            State((3, 0, 0)),
+            State((0, 3, 1)),
+            State((0, 3, 0)),
+            State((2, 2, 1)),
+            State((2, 2, 0)),
+            State((3, 2, 1))
+        ]
+
+        for state in exp_safe:
+            self.assertTrue(state.missionaries_are_safe, 'missionaries should be safe. state: {}'.format(state))
+
 class TestMissAndCannProblem(unittest.TestCase):
     def setUp(self):
         initial_state = State((3, 3, 1))
@@ -63,6 +77,11 @@ class TestMissAndCannProblem(unittest.TestCase):
         result = self.problem.result(self.root_node, actions[0])
         exp_node = Node(State((3, 2, 0)), self.root_node, actions[0])
         self.assertEqual(exp_node, result)
+
+    def test_goal_is(self):
+        node = Node(State((0, 0, 0)))
+        node_is_goal = self.problem.goal_is(node.state)
+        self.assertTrue(node_is_goal)
 
 class TestNode(unittest.TestCase):
     def setUp(self):
