@@ -49,12 +49,17 @@ class State:
 
     @property
     def missionaries_are_safe(self):
-        return self.num_missionaries == 0 or self.num_missionaries >= self.num_cannibals \
+        rs = State(self.right_side)
+
+        return (self.num_missionaries == 0 or self.num_missionaries >= self.num_cannibals) and \
+               (rs.num_missionaries == 0 or rs.num_missionaries >= rs.num_cannibals)
 
     @property
     def is_valid(self):
-        num_missionaries_valid = 0 <= self.num_missionaries <= 3
-        num_cannibals_valid = 0 <= self.num_cannibals <= 3
-        num_boat_valid = 0 <= self.num_boat <= 1
+        rs = State(self.right_side)
+
+        num_missionaries_valid = (0 <= self.num_missionaries <= 3) and (0 <= rs.num_missionaries <= 3)
+        num_cannibals_valid = (0 <= self.num_cannibals <= 3) and (0 <= rs.num_cannibals <= 3)
+        num_boat_valid = (0 <= self.num_boat <= 1) and (0 <= rs.num_boat <= 1)
 
         return num_missionaries_valid and num_cannibals_valid and num_boat_valid and self.missionaries_are_safe

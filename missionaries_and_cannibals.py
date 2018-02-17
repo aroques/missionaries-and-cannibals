@@ -2,6 +2,7 @@ from state import State
 from node import Node
 from missionaries_and_cannibals_problem import MissionariesAndCannibalsProblem
 
+
 def main():
     initial_state = State((3, 3, 1))
     goal_state = State((0, 0, 0))
@@ -18,24 +19,32 @@ def main():
 
     result = iterative_deepening_search(problem)
 
-    if result is not None:
-        print(result.solution)
-    else:
-        print('result is None. no soln found.')
+    if result:
+        for i, node in enumerate(result.path):
+            if node.depth % 2 == 0:
+                sign = '+'
+            else:
+                sign = '-'
+            print('{}{}'.format(sign, node.action))
+            print('depth: {}'.format(node.depth))
+            print(' {}'.format(node.state.wrong_side))
+
 
 def iterative_deepening_search(problem):
     limit = 13
     for depth in range(limit):
-        print('depth: {}'.format(depth))
         result = depth_limited_search(problem, depth)
         if result != 'cutoff':
             return result
 
+
 def depth_limited_search(problem, limit):
     return recursive_dls(Node(problem.initial_state), problem, limit)
 
+
 def recursive_dls(node, problem, limit):
     if problem.goal_is(node.state):
+        print('solution found at depth {}!'.format(node.depth))
         return node
     elif limit == 0:
         return 'cutoff'

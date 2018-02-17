@@ -39,7 +39,7 @@ class Node:
     @property
     def solution(self):
         """Return the sequence of actions to go from the root to this node."""
-        return [node.action for node in self.path()[1:]]
+        return [node.action for node in self.path[1:]]
 
     @property
     def path(self):

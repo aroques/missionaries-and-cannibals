@@ -33,11 +33,56 @@ class TestState(unittest.TestCase):
             State((0, 3, 0)),
             State((2, 2, 1)),
             State((2, 2, 0)),
-            State((3, 2, 1))
+            State((1, 1, 1)),
+            State((1, 1, 0)),
+            State((3, 2, 1)),
+            State((3, 2, 0))
+        ]
+
+        exp_unsafe = [
+            State((1, 2, 1)),
+            State((1, 2, 0)),
+            State((2, 3, 1)),
+            State((2, 3, 0))
         ]
 
         for state in exp_safe:
             self.assertTrue(state.missionaries_are_safe, 'missionaries should be safe. state: {}'.format(state))
+        for state in exp_unsafe:
+            self.assertFalse(state.missionaries_are_safe, 'missionaries should be unsafe. state: {}'.format(state))
+
+    def test_missionaries_are_safe(self):
+        exp_valid = [
+            State((3, 0, 1)),
+            State((3, 0, 0)),
+            State((0, 3, 1)),
+            State((0, 3, 0)),
+            State((2, 2, 1)),
+            State((2, 2, 0)),
+            State((1, 1, 1)),
+            State((1, 1, 0)),
+            State((3, 2, 1)),
+            State((3, 2, 0)),
+            State((0, 0, 0))
+        ]
+
+        exp_invalid = [
+            State((-1, -1, -1)),
+            State((2, -3, 2)),
+            State((2, 3, 2)),
+            State((2, 3, 1)),
+            State((1, 3, 0)),
+            State((1, 2, 1)),
+            State((4, 2, 1)),
+            State((1, 4, 1)),
+            State((1, 2, -1)),
+            State((1, 2, -1)),
+        ]
+
+        for state in exp_valid:
+            self.assertTrue(state.is_valid, 'state should be valid. state: {}'.format(state))
+        for state in exp_invalid:
+            self.assertFalse(state.is_valid, 'state should be invalid. state: {}'.format(state))
 
 class TestMissAndCannProblem(unittest.TestCase):
     def setUp(self):
