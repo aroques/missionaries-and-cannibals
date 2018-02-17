@@ -38,6 +38,3 @@ class MissionariesAndCannibals(Problem):
             state = node.state + action
 
         return Node(state, node, action)
-
-    def value(self, state):
-        pass

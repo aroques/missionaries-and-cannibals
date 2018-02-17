@@ -19,6 +19,9 @@ def main():
 
     result = iterative_deepening_search(problem)
 
+    print_result(result)
+
+def print_result(result):
     if result:
         for i, node in enumerate(result.path):
             if node.depth % 2 == 0:
